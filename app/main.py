@@ -1,14 +1,23 @@
-import graphene
 from fastapi import FastAPI
-from starlette.graphql import GraphQLApp
+from .settings import settings
 
+from . import middleware
+from . import routers
 
-class Query(graphene.ObjectType):
-    hello = graphene.String(name=graphene.String(default_value="stranger"))
+app = FastAPI(
+    title=settings.SERVICE_NAME,
+    description=settings.SERVICE_NAME,
+    verison=settings.SERVICE_NAME,
+)
+'''
+    Fast API Middleware
+'''
+app.add_middleware(
+    middleware.cors.CORSMiddleware,
+    **middleware.cors.config
+)
 
-    def resolve_hello(self, info, name):
-        return "Hello " + name
-
-
-app = FastAPI()
-app.add_route("/", GraphQLApp(schema=graphene.Schema(query=Query)))
+'''
+    Fast API Router
+'''
+app.include_router(routers.hello.router)
