@@ -1,0 +1,13 @@
+fastapi==0.68.0
+pydantic==1.8.2
+
+starlette==0.14.2
+graphene==2.1.9
+uvicorn==0.14.0
+
+promise==2.3
+typing-extensions==3.10.0.0
+tomli==1.2.0
+
+python-dotenv==0.19.0
+pip-tools==6.2.0
