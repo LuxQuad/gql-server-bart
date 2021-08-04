@@ -15,3 +15,4 @@ class User(esume.Base):
     hashed_password: str = Column(String)
 
     is_active: bool = Column(Boolean, default=True)
+

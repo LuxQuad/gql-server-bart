@@ -13,8 +13,9 @@ class InsertUser(Mutation):
 
     user = Field(lambda: schemas.user.UserModel)
 
-    def mutate(self, info, **kwargs):
-        _ = self, info
+    @staticmethod
+    def mutate(info, **kwargs):
+        _ = info
 
         user = models.user.User
 
@@ -32,7 +33,7 @@ class InsertUser(Mutation):
         database.esume.SessionLocal.add(user)
         database.esume.SessionLocal.commit()
 
-        return InsertUser(user)
+        return user
 
 
 class UpdateUser(Mutation):
@@ -44,13 +45,14 @@ class UpdateUser(Mutation):
 
     user = Field(lambda: schemas.user.UserModel)
 
-    def mutate(self, info, **kwargs):
-        _ = self, info
+    @staticmethod
+    def mutate(info, **kwargs):
+        _ = info
 
         try:
             pk = kwargs.get('id')
         except KeyError:
-            return None
+            return ""
         finally:
             database = dependencies.get_db()
 
@@ -61,7 +63,7 @@ class UpdateUser(Mutation):
 
         database.esume.SessionLocal.commit()
 
-        return UpdateUser(user)
+        return user
 
 
 class DeleteUser(Mutation):
@@ -70,8 +72,9 @@ class DeleteUser(Mutation):
 
     user = Field(lambda: schemas.user.UserModel)
 
-    def mutate(self, info, **kwargs):
-        _ = self, info
+    @staticmethod
+    def mutate(info, **kwargs):
+        _ = info
 
         try:
             pk = kwargs.get('id')

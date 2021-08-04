@@ -3,6 +3,7 @@ pydantic==1.8.2
 
 starlette==0.14.2
 graphene==2.1.9
+graphene-pydantic==0.2.0
 uvicorn==0.14.0
 
 graphene-sqlalchemy==2.3.0

@@ -12,4 +12,9 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-router.add_route("/", GraphQLApp(schema=graphene.Schema(query=user.Query, mutation=user.Mutation, types=[models.user.User])))
+router.add_route(
+    "/",
+    GraphQLApp(
+        schema=graphene.Schema(query=user.Query, mutation=user.Mutation, types=[models.user.User])
+    )
+)
