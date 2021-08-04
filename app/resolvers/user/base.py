@@ -6,7 +6,7 @@ class Query(graphene.ObjectType):
 
     def resolve_hello(self, info, name: str):
         """
-        hello
+        User
 
         :param info:
         :type name: str
