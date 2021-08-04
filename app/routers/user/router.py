@@ -1,8 +1,8 @@
 from fastapi import APIRouter
-from starlette.graphql import GraphQLApp
 import graphene
+from starlette.graphql import GraphQLApp
 
-
+from app import models
 from app.resolvers import user
 
 router = APIRouter(
@@ -12,4 +12,4 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-router.add_route("/", GraphQLApp(schema=graphene.Schema(query=user.Query)))
+router.add_route("/", GraphQLApp(schema=graphene.Schema(query=user.Query, mutation=user.Mutation, types=[models.user.User])))

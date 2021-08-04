@@ -7,11 +7,11 @@ class User(esume.Base):
     __tablename__: str = "users"
 
     # Identifier
-    id = Column(Integer, primary_key=True, index=True)
+    id: int = Column(Integer, primary_key=True, index=True)
 
     # Column
-    email = Column(String, unique=True, index=True)
-    username = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
+    email: str = Column(String, unique=True, index=True)
+    username: str = Column(String, unique=True, index=True)
+    hashed_password: str = Column(String)
 
-    is_active = Column(Boolean, default=True)
+    is_active: bool = Column(Boolean, default=True)

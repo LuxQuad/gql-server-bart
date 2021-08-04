@@ -1,4 +1,6 @@
 import os
+import logging
+
 from dotenv import load_dotenv
 from pydantic import BaseSettings
 
@@ -23,3 +25,5 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+logging.info(f'DATABASE {settings.ESUME_DATABASE_URL}')

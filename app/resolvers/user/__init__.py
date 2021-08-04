@@ -1,1 +1,1 @@
-from .base import Query
+from .base import Query, Mutation
