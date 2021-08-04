@@ -9,7 +9,8 @@ Engine = create_engine(
     connect_args={}
 )
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=Engine)
+SessionMarker = sessionmaker(autocommit=False, autoflush=False, bind=Engine)
+Session = SessionMarker
 
 Base = declarative_base()
-Base.query = scoped_session(SessionLocal).query_property()
+Base.query = scoped_session(Session).query_property()

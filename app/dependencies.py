@@ -8,8 +8,8 @@
 from app import database
 
 
-async def get_db():
-    db = database.esume.SessionLocal()
+def get_db():
+    db = database.esume.Session()
 
     try:
         yield db

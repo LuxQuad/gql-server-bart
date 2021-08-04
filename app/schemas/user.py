@@ -13,3 +13,5 @@ class UserModel(SQLAlchemyObjectType):
 class UserConnection(relay.Connection):
     class Meta:
         node = UserModel
+
+

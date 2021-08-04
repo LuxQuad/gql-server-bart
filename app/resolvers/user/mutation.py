@@ -1,89 +1,97 @@
-from graphene import String, Mutation, Boolean, Int, Field
+from fastapi import Depends
 
-from app import dependencies
+from graphene import Mutation, String, Boolean, Field, Int
+from graphql import GraphQLError
+from sqlalchemy.orm import Session
+
+from app import database
 from app import schemas
-from app import models
+
+from app.models.user import User
 
 
 class InsertUser(Mutation):
     class Arguments:
-        username: str = String(required=True)
-        email: str = String(required=True)
-        password: str = String(required=True)
+        username = String(required=True)
+        email = String(required=True)
+        password = String(required=True)
 
     user = Field(lambda: schemas.user.UserModel)
 
-    @staticmethod
-    def mutate(info, **kwargs):
-        _ = info
+    def mutate(self, info, **kwargs):
+        _ = self, info
 
-        user = models.user.User
+        user: User = User()
 
         try:
             for key, value in kwargs.items():
                 if key == 'password':
-                    setattr(user, 'hashed_password', value + '_hashed')
+                    setattr(user, key, value + '_hashed')
                 else:
-                    setattr(user, user.key, value)
+                    setattr(user, key, value)
         except IndexError:
             return ""
         finally:
-            database = dependencies.get_db()
+            db_session = database.esume.Session()
 
-        database.esume.SessionLocal.add(user)
-        database.esume.SessionLocal.commit()
+        try:
+            db_session.add(user)
+            db_session.commit()
+        except Exception:
+            raise GraphQLError('이미 등록된 계정입니다.')
 
-        return user
+        return InsertUser(user)
 
 
 class UpdateUser(Mutation):
     class Arguments:
-        id: int = Int()
-        username: str = String()
-        email: str = String()
-        is_active: bool = Boolean()
+        id = Int()
+        username = String()
+        email = String()
+        is_active = Boolean()
 
+    ok = Boolean()
     user = Field(lambda: schemas.user.UserModel)
 
-    @staticmethod
-    def mutate(info, **kwargs):
-        _ = info
+    def mutate(self, info, **kwargs):
+        _ = self, info
 
         try:
-            pk = kwargs.get('id')
+            pk: int = kwargs.get('id')
         except KeyError:
             return ""
         finally:
-            database = dependencies.get_db()
+            db_session = database.esume.Session()
 
-        user = database.esume.SessionLocal.query(models.user.User).filter_by(id=pk).first()
+        user: User = db_session.query(User).filter_by(id=pk).first()
 
         for key, value in kwargs.items():
-            setattr(user, user.key, value)
+            setattr(user, key, value)
 
-        database.esume.SessionLocal.commit()
+        db_session.commit()
 
-        return user
+        return UpdateUser(user)
 
 
 class DeleteUser(Mutation):
     class Arguments:
-        id: int = Int()
+        id = Int()
 
     user = Field(lambda: schemas.user.UserModel)
 
-    @staticmethod
-    def mutate(info, **kwargs):
-        _ = info
+    def mutate(self, info, **kwargs):
+        _ = self, info
 
         try:
-            pk = kwargs.get('id')
+            pk: int = kwargs.get('id')
         except KeyError:
             return None
         finally:
-            database = dependencies.get_db()
+            db_session = database.esume.Session()
 
-        user = database.esume.SessionLocal.query(models.user.User).filter_by(id=pk).first()
-        database.esume.SessionLocal.delete(user)
+        user: User = db_session.query(User).filter_by(id=pk).first()
 
-        return ""
+        db_session.delete(user)
+        db_session.commit()
+
+        return DeleteUser(user)

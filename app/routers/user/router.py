@@ -2,7 +2,7 @@ from fastapi import APIRouter
 import graphene
 from starlette.graphql import GraphQLApp
 
-from app import models
+from app import schemas
 from app.resolvers import user
 
 router = APIRouter(
@@ -15,6 +15,6 @@ router = APIRouter(
 router.add_route(
     "/",
     GraphQLApp(
-        schema=graphene.Schema(query=user.Query, mutation=user.Mutation, types=[models.user.User])
+        schema=graphene.Schema(query=user.Query, mutation=user.Mutation, types=[schemas.user.UserModel])
     )
 )

@@ -12,7 +12,6 @@ class User(esume.Base):
     # Column
     email: str = Column(String, unique=True, index=True)
     username: str = Column(String, unique=True, index=True)
-    hashed_password: str = Column(String)
+    password: str = Column(String)
 
     is_active: bool = Column(Boolean, default=True)
-
