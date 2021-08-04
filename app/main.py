@@ -3,6 +3,14 @@ from .settings import settings
 
 from . import middleware
 from . import routers
+from . import database
+
+'''
+    DB Migrate
+'''
+core_db = database.esume
+core_db.Base.metadata.create_all(bind=core_db.Engine)
+
 
 app = FastAPI(
     title=settings.SERVICE_NAME,
@@ -20,4 +28,4 @@ app.add_middleware(
 '''
     Fast API Router
 '''
-app.include_router(routers.hello.router)
+app.include_router(routers.user.router)
