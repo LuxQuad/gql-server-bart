@@ -1,64 +1,123 @@
-# gql-server-bart
+<div id="header" align="center">
+  <h1>GraphQL Server API with Bart</h1>
+  <div id="status">
+      <a href="#" target="_blank"><img src="https://img.shields.io/github/issues-pr-closed/LuxQuad/ozet-ozetenes" alt="GitHub closed pull requests" /></a>
+  </div>
+  <div id="project-logo">
+    <a href="https://github.com/BartKim-J/pretty-readme" >
+      <img src="https://user-images.githubusercontent.com/36470472/128664018-103bff8e-6be3-4996-9bbd-41d82a7d48d8.png" width="200px" height="200px" alt="project-logo"/>
+    </a>
+  </div>
+  <div id="main">
+    <a href="#" target="_blank"><img src="https://img.shields.io/badge/Kubernetes-326CE5.svg?style=flat&logo=Kubernetes&logoColor=white" alt="kubernetes" /></a>
+    <a href="#" target="_blank"><img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=Docker&logoColor=white" alt="docker" /></a>
+    <a href="#" target="_blank"><img src="https://img.shields.io/badge/GraphQL-E434AA?style=flat&logo=GraphQL&logoColor=white" alt="graphql" /></a>
+  </div>
+</div>
 
-프로젝트의 전반적인 내용에 대한 요약을 여기에 적습니다
+> :warning: ozet logo 나오면 이미지 교체 예정
 
-## Getting Started / 어떻게 시작하나요?
+## Getting Started
 
-이 곳에서 설치에 관련된 이야기를 해주시면 좋습니다.
+아래는 `OZETenes Core API` 를 실행하기 위한 가이드 입니다.
 
-### Prerequisites / 선행 조건
+### Prerequisites
 
-아래 사항들이 설치가 되어있어야합니다.
+---
+아래 사항들이 설치 및 선행 되어 있어야 합니다.
+* #### [Docker Desktop](https://www.docker.com/products/docker-desktop) (example)
+    * Mac 설치
+        ```
+        $ (설치 명령어)
+        ```
+### Installing
+
+---
+아래는 프로젝트를 설치하는 방법입니다.
+1. #### 레포지토리 설치 (example)
+    ```
+    $ git clone https://github.com/LuxQuad/esume-core-api.git 
+    $ cd esume-core-api
+    ```
+2. #### 환경 설치
+    ```
+    $ pip install -r -requirements.txt
+    ```
+
+## Testing
+하단의 스크립트를 실행하면 테스트 코드가 작동합니다.
+```
+$ pytest
+```
+아래와 같이 테스트가 진행됩니다.
+```
+(테스트 중)
+```
+```
+(테스트 결과)
+```
+
+## Running
+아래는 프로젝트를 실질적으로 실행하는 방법에 대해 설명합니다.
+
+> Running Admin URL(http://127.0.0.1:8000) 
+> 
+> 
+
+* ### [Django](https://docs.djangoproject.com/ko/2.1/intro/tutorial01/#the-development-server) (example)
+    ```
+    $ python manage.py runserver
+    ```
+    ```
+    (실행 결과)
+    ```
+
+* ### [Gunicorn](https://docs.gunicorn.org/en/stable/) (example)
+    ```
+    $ gunicorn service.main:app
+    ```
+    ```
+    ...
+    (실행 결과)
+    ```
+
+## Workflow
+현재 Workflow 는 기본적으로 [Git Flow](https://techblog.woowahan.com/2553/) 를 사용하고 있습니다.
+> * `master` : 제품으로 출시될 수 있는 브랜치
+> * `develop` : 다음 출시 버전을 개발하는 브랜치
+> * `feature` : 기능을 개발하는 브랜치
+> * `release` : 이번 출시 버전을 준비하는 브랜치
+> * `hotfix` : 출시 버전에서 발생한 버그를 수정 하는 브랜치
+> * `fix` : 기존에 발생한 버그를 수정하는 브랜치
+>
+>
+> <div align="center"> <img src="https://user-images.githubusercontent.com/36470472/128487175-e5d28ce3-b5b7-48f2-914d-4b9383277986.png" width="600" alt="git-flow" /></div>
+
+## Directory Structure(example)
+```
+.
+├── app
+│        ├── crud
+│        ├── database
+│        ├── grpc
+│        │       ├── protos
+│        │       └── protos_python
+│        ├── middleware
+│        ├── models
+│        ├── routers
+│        │       ├── health
+│        │       ├── items
+│        │       ├── sentry
+│        │       └── users
+│        ├── schemas
+│        └── test
+│            └── api
+├── docker
+│        ├── postgresql
+│        └── redis
+├── nginx
+└── script
+         └── grpc
+
 
 ```
-예시
-```
-
-### Installing / 설치
-
-아래 사항들로 현 프로젝트에 관한 모듈들을 설치할 수 있습니다.
-
-```
-예시
-```
-
-## Running the tests / 테스트의 실행
-
-어떻게 테스트가 이 시스템에서 돌아가는지에 대한 설명을 합니다
-
-### 테스트는 이런 식으로 동작합니다
-
-왜 이렇게 동작하는지, 설명합니다
-
-```
-예시
-```
-
-### 테스트는 이런 식으로 작성하시면 됩니다
-
-```
-예시
-```
-
-## Deployment / 배포
-
-Add additional notes about how to deploy this on a live system / 라이브 시스템을 배포하는 방법
-
-## Built With / 누구랑 만들었나요?
-
-* [이름](링크) - 무엇 무엇을 했어요
-* [Name](Link) - Create README.md
-
-## Contributiong / 기여
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us. / [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) 를 읽고 이에 맞추어 pull request 를 해주세요.
-
-## License / 라이센스
-
-This project is licensed under the MIT License - see the [LICENSE.md](https://gist.github.com/PurpleBooth/LICENSE.md) file for details / 이 프로젝트는 MIT 라이센스로 라이센스가 부여되어 있습니다. 자세한 내용은 LICENSE.md 파일을 참고하세요.
-
-## Acknowledgments / 감사의 말
-
-* Hat tip to anyone whose code was used / 코드를 사용한 모든 사용자들에게 팁
-* Inspiration / 영감
-* etc / 기타
